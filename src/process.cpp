@@ -17,7 +17,7 @@ Process :: Process (int pid) {
     Process::command_ = LinuxParser::Command(pid);
     Process::cpuUtil_ = LinuxParser::CpuUtilization(pid);
     Process::ram_ =  LinuxParser::Ram(pid);
-    Process::uptime_ = LinuxParser::UpTime(pid);
+    Process::uptime_ =  LinuxParser::UpTime() - LinuxParser::UpTime(pid);
 }
 
 // TODO: Return this process's ID
@@ -40,7 +40,4 @@ long int Process::UpTime() { return Process::uptime_; }
 
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const& a) const { 
-    if ((this->cpuUtil_) > (a.cpuUtil_)) {return true;}
-    return false;
-}
+bool Process::operator<(Process const& a) const { return (this->cpuUtil_) > (a.cpuUtil_); }
